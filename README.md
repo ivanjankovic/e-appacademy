@@ -1,10 +1,16 @@
-### education-AppAcademy
+## education-AppAcademy
 
 open.appacademy.io
-______________________________________
+____________________________________________
 
-Welcome To Coding  
-Full Stack Online - Intro to Programming  
+
+
+------------ Welcome To Coding -------------
+
+
+
+----------- Intro to Programming -----------
+
 + Introduction
 + Numbers
 + Booleans
@@ -52,7 +58,7 @@ Full Stack Online - Intro to Programming
 + Recursion                     - 02:14:00
 + Foundations Recap             - 03:00:00
 
-toatl time estimate 61H & 12m
+required time estimate 61H & 12m
 __________________________________________
 
 
@@ -72,7 +78,7 @@ __________________________________________
 + LRU Cache                     - 18:10:00
 + Additional Topics             - 04:25:00
 
-toatl time estimate 158H & 17m
+required time estimate 158H & 17m
 __________________________________________
 
 
@@ -86,7 +92,7 @@ __________________________________________
 + Active Record II              - 14:46:00
 + Active Record under-the-hood  - 11:34:00
 
-toatl time estimate 62H & m40
+required time estimate 62H & m40
 __________________________________________
 
 
@@ -103,7 +109,7 @@ __________________________________________
 + Advanced Rails Forms          - 08:49:00
 + Rails Lite                    - 14:46:00
 
-toatl time estimate 120H & 13m
+required time estimate 120H & 13m
 __________________________________________
 
 
@@ -118,12 +124,13 @@ __________________________________________
 + AJAX                          - 09:20:00
 + JavaScript DOM API            - 09:30:00
 
-toatl time estimate 78H & 25m
+required time estimate 78H & 25m
 __________________________________________
 
 
 
-Full Stack Online - React 
+------------------ React -----------------
+
 + React Fundamentals            - 18:05:00
 + Redux Fundamentals            - 14:12:00
 + Middleware and Thunks         - 08:20:00
@@ -132,21 +139,27 @@ Full Stack Online - React
 + Frontend Auth                 - 13:09:00
 + Completing Bench BnB          - 12:41:00
 
-toatl time estimate 91H & 17m
-______________________________________
+required time estimate 91H & 17m
+__________________________________________
 
-Full Stack Online - Full Stack Project 
-+ Tentative Project Proposal  - 00:20:00
-+ Design Documents            - 01:00:00
-+ Culture Curriculum Week 9   - 00:43:00
-+ Project                     - 03:20:00
-+ Culture Curriculum Week 10  - 00:21:00
-+ Resources                   - 07:06:00
 
-toatl time estimate 12H & 50m
-______________________________________
 
-Full Stack Online - Job Search 
+----------- Full Stack Project -----------
+
++ Tentative Project Proposal  	- 00:20:00
++ Design Documents            	- 01:00:00
++ Culture Curriculum Week 9   	- 00:43:00
++ Project                     	- 03:20:00
++ Culture Curriculum Week 10  	- 00:21:00
++ Resources                   	- 07:06:00
+
+required time estimate  12H & 50m
+__________________________________________
+
+
+
+--------------- Job Search ---------------
+
 + Getting Started                         - 00:05:00
 + MERN W9D5 - W10D3                       - 07:30:15
 + JavaScript W10D3 - W11D1                - 08:53:00
@@ -162,20 +175,23 @@ Full Stack Online - Job Search
 + System Design                           - 02:15:00
 + Additional Tech Topics                  - 03:19:00
 
-toatl time estimate 69H & 37m
-______________________________________
+required time estimate 69H & 37m
+_________________________________________
 
-Full Stack Online - GraphQL 
-Welcome                       - 00:09:30
-Day 1: Query Language         - 02:47:18
-Day 2: Server Configuration   - 04:09:00
-Day 3: GraphQL and React      - 04:59:00
 
-toatl time estimate 12H & 05m
-______________________________________
 
-______________________________________
+---------------- GraphQL ----------------
 
-master toatl time estimate 666H & 36m ~ 16W * 42H 
-______________________________________
++ Welcome                       - 00:09:30
++ Day 1: Query Language         - 02:47:18
++ Day 2: Server Configuration   - 04:09:00
++ Day 3: GraphQL and React      - 04:59:00
+
+required time estimate 12H & 05m
+_________________________________________
+
+_________________________________________
+
+total time estimate 666H & 36m ~ 16W * 42H 
+_________________________________________
 
