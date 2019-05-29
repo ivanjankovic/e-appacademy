@@ -195,3 +195,12 @@ _________________________________________
 total time estimate 666H & 36m ~ 16W * 42H 
 _________________________________________
 
+dependicis  
+
+check waht you have already on the system  
+
+Hombrew >> brew -v  
+Git >> git --version
+rbenv >> rbenv -v
+Ruby >> ruby -v
+
