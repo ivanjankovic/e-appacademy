@@ -1,12 +1,12 @@
-require_relative './tile'
+require_relative 'tile'
 require 'colorize'
 
 class Board
   
-  attr_reader :board
+  attr_reader :grid
 
   def initialize
-    @board = Array.new(9) { Array.new(9) }
+    @grid = Array.new(9) { Array.new(9) }
   end
 
   def from_file
@@ -19,9 +19,9 @@ class Board
       (0...9).each do |col|
         value = self.from_file[row][col].to_i
         if value == 0
-          @board[row][col] = Tile.new(nil, false)
+          @grid[row][col] = Tile.new(nil, false)
         else
-          @board[row][col] = Tile.new(value, true)
+          @grid[row][col] = Tile.new(value, true)
         end 
       end
     end
@@ -30,10 +30,10 @@ class Board
   def set_value(pos, value)
     row, col = pos
   
-    if @board[row][col].from_file
+    if @grid[row][col].from_file
       return false
     else
-      @board[row][col].value = value
+      @grid[row][col].value = value
       puts "Value updated".red
       return true
     end    
@@ -43,7 +43,7 @@ class Board
     puts '-' * 19
     (0...9).each do |row|
       (0...9).each do |col|
-        print " #{@board[row][col]}"
+        print " #{@grid[row][col]}"
       end
       puts
     end
@@ -51,10 +51,10 @@ class Board
   end
 
   def solved?
-    if @board.flatten.none?(nil)
+    if @grid.flatten.none?(nil)
       puts "board filled".red
-      rows = @board
-      cols = @board.transpose
+      rows = @grid
+      cols = @grid.transpose
       all_numbers?(rows) #&& all_numbers?(cols)
     end
   end
@@ -67,7 +67,3 @@ class Board
   end
 
 end
-
-board = Board.new
-board.populate
-board.render
