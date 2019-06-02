@@ -2,7 +2,7 @@ require 'colorize'
 
 class Tile
 
-  attr_reader :value
+  attr_accessor :value, :from_file
 
   def initialize(value, from_file)
     @value = value
@@ -12,6 +12,8 @@ class Tile
   def to_s
     if @from_file
       self.value.to_s.light_cyan
+    elsif @value.nil? 
+      '?'.light_black
     else
       self.value.to_s
     end
