@@ -1,5 +1,5 @@
 require_relative 'tile'
-require 'colorize'
+# require 'colorize'
 
 class Board
   
@@ -11,7 +11,7 @@ class Board
 
   def from_file
     File.readlines('./puzzles/sudoku1.txt')
-    # File.readlines('./puzzles/sudoku1_solved.txt')
+    # File.readlines('./puzzles/sudoku1_almost.txt')
   end
 
   def populate
@@ -29,41 +29,66 @@ class Board
 
   def set_value(pos, value)
     row, col = pos
-  
+    
     if @grid[row][col].from_file
       return false
     else
       @grid[row][col].value = value
-      puts "Value updated".red
       return true
     end    
   end
 
   def render
-    puts '-' * 19
+    system 'clear'
+    puts
+    puts "   0 1 2 3 4 5 6 7 8".light_black
+    puts "  #{'-' * 19}".light_cyan
     (0...9).each do |row|
+      print row.to_s.light_black + ' '
+
       (0...9).each do |col|
         print " #{@grid[row][col]}"
       end
       puts
     end
-    puts '-' * 19
+    puts "  #{'-' * 19}".light_cyan
   end
 
   def solved?
-    if @grid.flatten.none?(nil)
-      puts "board filled".red
-      rows = @grid
-      cols = @grid.transpose
-      all_numbers?(rows) #&& all_numbers?(cols)
+    if grid.flatten.none?(nil)
+      rows = grid.map { |row| row.map(&:value) }
+      columns = rows.transpose
+      blocks = to_blocks(rows)
+      all_numbers?(rows) && all_numbers?(columns) && all_numbers?(blocks)
     end
   end
 
-  def all_numbers?(array)
-    array.all? do |sub_array|
-      values = sub_array.map { |tile| tile.value }
-      (1..9).all? { |num| values.include?(num) }
+  def to_blocks(rows)
+    r_st, r_end, c_st, c_end = 0, 2, 0, 2
+    blocks, block = [], []
+    3.times do 
+      rows.each_with_index do |row, idx|
+        (c_st..c_end).each do |col|
+          block << row[col]
+        end
+        if idx == 2 || idx == 5 || idx == 8
+          blocks << block
+          block = []
+        end
+      end
+      c_st += 3
+      c_end += 3
+
     end
+    blocks
+  end
+  
+  def all_numbers?(array_2d)
+    array_2d.all? { |array| uniq_nums?(array) }
+  end
+
+  def uniq_nums?(numbers)
+    (1..9).all? { |num| numbers.include?(num) }
   end
 
 end
