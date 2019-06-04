@@ -144,10 +144,38 @@ def fib_itera(n)
 end
 
 # test
-p fib_itera(3), fib_itera(4), fib_itera(5), fib_itera(6), fib_itera(7)
+# p fib_itera(3), fib_itera(4), fib_itera(5), fib_itera(6), fib_itera(7)
 
 
 ###   Excercise 4 - Binary Search   ###
+
+def bsearch(array, target)
+  return nil if array.length == 1 && target != array[0]
+  idx = array.length / 2
+  mid_ele = array[idx]
+
+  if target == mid_ele
+    return idx
+  elsif target < mid_ele
+    return bsearch(array[0...idx], target)
+  else
+    if bsearch(array[idx+1..-1], target).nil?
+      return nil
+    else
+      return idx + 1 + bsearch(array[idx+1..-1], target)
+    end
+  end
+end
+
+# test
+
+# p bsearch([1, 2, 3], 1) # => 0
+# p bsearch([2, 3, 4, 5], 3) # => 1
+# p bsearch([2, 4, 6, 8, 10], 6) # => 2
+# p bsearch([1, 3, 4, 5, 9], 5) # => 3
+# p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 
 ###   Excercise 5 - Merge Sort   ###
 
