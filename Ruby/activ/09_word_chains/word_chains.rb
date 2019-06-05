@@ -6,17 +6,30 @@ class WordChainer
   attr_reader :dictionary
 
   def initialize(dictionary_file_name)
-    @dictionary = File.readlines(dictionary_file_name)
+    @dictionary = File.readlines(dictionary_file_name).map { |word| word.chomp }
   end
 
   def adjacent_words(word)
-    same_len_words = dictionary.map { |dw| word.length == dw.length }
+    len_dictionary = dictionary.select { |dw| dw.length == word.length }
+    adjacent_d = []
     
-    p  same_len_words.length
+    idx = 0
+    while idx < word.length
+      len_dictionary.each do |lword|
+        # p lword
+        adjacent_d << lword if remove(lword, idx) == remove(word, idx)
+      end
 
-    # dictionary.each do |d_word|
-    #   if word.chars.one? { |char| d_word.chars.include?(char)}
-    # end
+      idx += 1
+    end
+    adjacent_d
+  end
+
+  # removel letter from the word
+  def remove(word, idx)
+    word[0...idx] + word[idx+1..-1]
   end
 
 end
+
+wc = WordChainer.new('dictionary.txt')
