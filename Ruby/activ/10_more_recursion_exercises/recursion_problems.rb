@@ -48,7 +48,7 @@ end
 # Problem 4: 
 
 def add_to_twelve?(array)
-  return false if array.length == 1 || array.empty?
+  return false if array.length <= 1
 
   if array.shift + array.first == 12
     return true
@@ -58,15 +58,23 @@ def add_to_twelve?(array)
 end
 
 # test
-p add_to_twelve?([1, 2, 3, 9, 3, 5, 6, 3])
-p add_to_twelve?([9])
-p add_to_twelve?([])
+# p add_to_twelve?([1, 2, 3, 9, 3, 5, 6, 3])
+# p add_to_twelve?([9])
+# p add_to_twelve?([])
 
 
-# Problem 5: 
+# Problem 5: You have array of integers. Write a recursive solution to determine if the array is sorted.
 
 def sorted?(array)
+  return true if array.length <= 1
+  array.first > array[1] ? false : sorted?(array.drop(1))
 end
+
+# test
+p sorted?([1, 2, 3, 4, 5])
+p sorted?([1, 3, 3, 4, 2])
+p sorted?([9])
+p sorted?([])
 
 # Problem 6: 
 
