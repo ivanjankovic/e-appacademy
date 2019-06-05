@@ -41,14 +41,27 @@ def num_occur(array, target)
 end
 
 # test
-p num_occur([1, 2, 3, 4, 3, 5, 6, 3], 3)
-p num_occur([], 3)
+# p num_occur([1, 2, 3, 4, 3, 5, 6, 3], 3)
+# p num_occur([], 3)
 
 
 # Problem 4: 
 
 def add_to_twelve?(array)
+  return false if array.length == 1 || array.empty?
+
+  if array.shift + array.first == 12
+    return true
+  else
+    add_to_twelve?(array)
+  end
 end
+
+# test
+p add_to_twelve?([1, 2, 3, 9, 3, 5, 6, 3])
+p add_to_twelve?([9])
+p add_to_twelve?([])
+
 
 # Problem 5: 
 
