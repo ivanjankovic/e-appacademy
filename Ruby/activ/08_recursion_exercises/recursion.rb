@@ -22,21 +22,21 @@ end
 
 # Write both a recursive and iterative version of sum of an array.
 
-def recursive_sum(n)
-  return n if n == 0
+def recursive_sum(nums)
+  return 0 if nums.empty?
 
-  return n + recursive_sum(n - 1)
+  return nums.pop + recursive_sum(nums)
 end
 
-def iterative_sum(n)
+def iterative_sum(nums)
   count = 0
-  (1..n).each { |i| count += i }
-  return count
+  nums.each { |num| count += num }
+  count
 end
 
 # test
-# p recursive_sum(5)
-# p iterative_sum(5)
+# p recursive_sum([1,2,3,4])
+# p iterative_sum([1,2,3,4])
 
 
 
@@ -83,19 +83,20 @@ end
 
 
 ###   Excercise 2 - Deep dup array  ###
+class Array
+  def deep_dup
+    copy = []
 
-def deep_dup(arr)
-  copy = []
-
-  arr.each do |ele|
-    if !ele.kind_of?(Array)
-      copy << ele
-    else
-      copy << deep_dup(ele)
+    self.each do |ele|
+      if !ele.kind_of?(Array)
+        copy << ele
+      else
+        copy << ele.deep_dup
+      end
     end
-  end
 
-  return copy
+    return copy
+  end
 end
 
 # test
@@ -103,7 +104,7 @@ end
 #   ["nuts", "bolts", "washers"],
 #   ["capacitors", "resistors", "inductors"]
 # ]
-# robot_parts_copy = deep_dup(robot_parts)
+# robot_parts_copy = robot_parts.deep_dup
 # # shouldn't modify robot_parts
 # robot_parts_copy[1] << "LEDs"
 # # but it does
@@ -111,14 +112,17 @@ end
 
 ###   Excercise 3 - Fibonacci   ###
 
-def fib_recur(n)
-  if n == 0
-    return 0
-  elsif n == 1
-    return 1
-  else
-    return fib_recur(n - 1) + fib_recur(n - 2)
-  end
+def fib_rec(n)
+  # if n == 0
+  #   return 0
+  # elsif n == 1
+  #   return 1
+  # else
+  #   return fib_recur(n - 1) + fib_recur(n - 2)
+  # end
+  return [0] if n == 0
+  return [0, 1] if n == 1
+  [] << fib_rec(n - 1)
 end
 
 # test
@@ -179,7 +183,58 @@ end
 
 ###   Excercise 5 - Merge Sort   ###
 
+def merge_sort(arr)
+  if arr.length <= 2
+    return merge(arr[0], arr[-1])
+  end
+end
+
+def merge(arr1, arr2)
+  sorted = []
+  while !arr1.empty? && !arr2.empty?
+    if arr1[0] <= arr2[0]
+      sorted << arr1.shift
+      
+    else
+      sorted << arr2.shift
+      
+    end
+    p sorted
+    p "#{arr1} #{arr2}"
+  end
+
+  if arr1.empty?
+    sorted << arr2[0]
+  else
+    sorted << arr1[0]
+  end
+
+  sorted
+end
+
 ###   Excercise 6 - Array Subsets   ###
+
+# You can implement this as an Array method if you prefer.
+
+# Hint: For subsets([1, 2, 3]), there are two kinds of subsets:
+
+# Those that do not contain 3 (all of these are subsets of [1, 2]).
+# For every subset that does not contain 3, there is also a corresponding subset that is the same, except it also does contain 3.
+
+def subsets(arr)
+  return [arr] if arr.empty?
+
+  if arr.length == 1
+    return subsets(arr[0...0]) + [arr]
+  end
+end
+
+# test
+p subsets([]) # => [[]]
+p subsets([1]) # => [[], [1]]
+p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+# subsets([1, 2, 3]) # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+
 
 ###   Excercise 7 - Permutations   ###
 
