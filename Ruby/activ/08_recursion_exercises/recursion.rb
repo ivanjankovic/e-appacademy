@@ -223,17 +223,19 @@ end
 
 def subsets(arr)
   return [arr] if arr.empty?
+  # p arr
+  # if arr.length == 1
+  #   return subsets(arr[0...0]) + [arr]
+  # end
 
-  if arr.length == 1
-    return subsets(arr[0...0]) + [arr]
-  end
+  arr.each {|ele| subsets(arr -[ele]) } + [arr]
 end
 
 # test
-p subsets([]) # => [[]]
-p subsets([1]) # => [[], [1]]
-p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
-# subsets([1, 2, 3]) # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+# p subsets([]) # => [[]]
+# p subsets([1]) # => [[], [1]]
+# p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+p subsets([1, 2, 3]) # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
 
 
 ###   Excercise 7 - Permutations   ###
