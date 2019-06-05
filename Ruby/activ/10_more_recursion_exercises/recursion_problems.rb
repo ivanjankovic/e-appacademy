@@ -67,16 +67,22 @@ end
 
 def sorted?(array)
   return true if array.length <= 1
-  array.first > array[1] ? false : sorted?(array.drop(1))
+  array[0] > array[1] ? false : sorted?(array.drop(1))
 end
 
 # test
-p sorted?([1, 2, 3, 4, 5])
-p sorted?([1, 3, 3, 4, 2])
-p sorted?([9])
-p sorted?([])
+# p sorted?([1, 2, 3, 4, 5])
+# p sorted?([1, 3, 3, 4, 2])
+# p sorted?([9])
+# p sorted?([])
 
-# Problem 6: 
+# Problem 6: Write a recursive function to reverse a string. Don't use any built-in #reverse methods!
 
 def reverse(string)
+  return string if string.length <= 1
+  return string[-1] + reverse(string[0...-1])
 end
+
+# test
+# p reverse('Ivan')
+# p reverse('')
