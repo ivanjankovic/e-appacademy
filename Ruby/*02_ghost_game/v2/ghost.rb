@@ -1,9 +1,10 @@
-
+require_relative 'player'
 require 'byebug'
 
 class Game
 
   attr_reader :dictionary, :fragment
+  attr_accessor :char
 
   def initialize(*args)
     @fragment = ''
@@ -25,14 +26,20 @@ class Game
       print 'input a letter: '
       @char = gets.chomp
     end
+    @fragment += @char
+    @char = ''
+    update_dictionary
   end
   
+  def update_dictionary
+    dictionary.select! { |word| @fragment == word[0...fragment.length] }
+  end
+
   def valid_play?
     alphabet = ('a'..'z').to_a
-    
-    false if !alphabet.include?(@char)
-    false if !dictionary.any? { |word| @char == word[fragment.length] }
-    true
+
+    alphabet.include?(@char) &&
+      dictionary.any? { |word| @char == word[fragment.length] } ? true : false
   end
   
 end
