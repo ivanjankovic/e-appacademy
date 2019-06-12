@@ -1,5 +1,7 @@
 require_relative 'player'
+require 'colorize'
 require 'byebug'
+
 
 class Game
 
@@ -30,27 +32,33 @@ class Game
     letters
   end
 
+  def activ_players
+    @players.select { |p| p.activ }
+  end
+
   def run
     puts "Let's Start This Game!"
-    # play while there is more than any player with activ value set to true
-    while @players.any? { |p| p.activ }
+    
+    while activ_players.length > 1
       play_round
     end
     puts
-    puts '----- Game Over -----'
+    puts '---------------- Game Over ----------------'.light_magenta
     puts
-    puts "Only ONE player left, #{the_winner?[0].name} is the winner!!!"
+    puts "Only ONE player left, #{the_winner?[0].name.upcase.light_magenta} is the winner!!!"
+    puts
+    puts ('-' * 43).light_magenta
+    puts
 
   end
 
   def play_round
-
-    @players.select { |p| p.activ }.each do |player|
-        @current_player = player
-        @letters = available_letters
-        @char = ''
-        take_turn
-        next_player!
+    activ_players.each do |player|
+      @current_player = player
+      @letters = available_letters
+      @char = ''
+      take_turn
+      next_player!
     end
     
   end
@@ -60,14 +68,15 @@ class Game
   end
 
   def take_turn
-    
-    # system "clear"
+    return if activ_players.length < 2
+    system "clear"
     display_score
     puts
-    puts "List of posible letters: #{@letters.keys.join}"
-    puts "Number of posible words: #{@dictionary.length}"
-    puts "Wating for #{@current_player.name}'s next move."
-    puts "Current fragment: #{@fragment}"
+    puts "------ #{@current_player.name} Playing ------".light_cyan
+    puts
+    puts "Posible letters: #{@letters.keys.join(' ').upcase.light_blue}"
+    puts "Number of potental words: #{@dictionary.length.to_s.light_blue}"
+    puts "Current fragment: #{@fragment.upcase.light_blue}"
 
     until valid_play?
       print "Enter a letter form the list: "
@@ -78,15 +87,15 @@ class Game
     update_dictionary
     if dictionary.empty?
       puts
-      puts '----- Round Over -----'
+      puts '----- Word Complited -----'.light_green
       puts
-      puts "Congratulations #{@current_player.name}!!!"
-      puts "You complited a word #{fragment.upcase} and EARND a letter!"
+      puts "Congratulations #{@current_player.name.upcase.light_blue}!!!"
+      puts "You complited a word #{fragment.upcase.light_green} and EARND a letter!"
 
       #update curent player score and activ properties
       @current_player.score += 1
       @current_player.activ = false if @current_player.score == 5
-
+      
       # reset fragment and dictionary
       @fragment = ''
       @dictionary = create_dictionary('./dictionary.txt')
@@ -106,7 +115,7 @@ class Game
   
   def display_score
     players.each do |player|
-      puts "PLayer #{player.name}'s' score is #{player.score}"
+      puts "Player #{player.name}'s' score is  #{ghost_score(player).light_blue}"
     end
   end
 
@@ -114,9 +123,9 @@ class Game
     players.select { |player| player.score < 5 }
   end
 
-  # def record(player)
-  #   'GHOST'[0...@losses.player]
-  # end
+  def ghost_score(player)
+    'GHOST'[0...player.score]
+  end
 
 end 
 
