@@ -21,35 +21,27 @@ class Game
 
   def run
     display_wellcome
-    play_round while activ_players.length > 1
+    play_round while activ_players > 1
     display_game_over
   end
 
   def play_round
+
+    # take a turn for every actvi player
     players.each do |player|
-      
-      if player.activ && !round_over?
+      if player.activ && activ_players > 1
         @current_player = player
         available_letters
         @char = ''
         take_turn
-      else
-        display_word_complete
-
-        #update compleated words, player score and activ properties
-        @compleated << @fragment
-        @current_player.score += 1
-        @current_player.activ = false if @current_player.score == 5
-        
-        # reset fragment and dictionary
-        @fragment = ''
-        @dictionary = create_dictionary('./dictionary.txt')
-        sleep(5)
       end
     end
   end
 
   def take_turn
+    # available_letters
+    # @char = ''
+    # system "clear"
     display_score
     display_turn_info
 
@@ -60,6 +52,22 @@ class Game
     
     @fragment += @char
     update_dictionary
+    word_comlete if dictionary.empty?
+    system "clear"
+  end
+
+  def word_comlete
+    display_word_complete
+
+    #update compleated words, player score and activ properties
+    @compleated << @fragment
+    @current_player.score += 1
+    @current_player.activ = false if @current_player.score == 5
+    
+    # reset fragment and dictionary
+    @fragment = ''
+    @dictionary = create_dictionary('./dictionary.txt')
+    sleep(5)
   end
 
   ### ----- Helper Methods ----- ###
@@ -69,16 +77,12 @@ class Game
   end
 
   def activ_players
-    @players.select { |p| p.activ }
+    @players.select { |p| p.activ }.length
   end
 
   # posilble letters for the next turn
   def available_letters
     @letters = @dictionary.map { |word| word[fragment.length] }.uniq.to_a
-  end
-
-  def round_over?
-    dictionary.empty?
   end
 
   # minimazise dictionar to words that only that start with curent fragment
@@ -99,16 +103,19 @@ class Game
     'GHOST'[0...player.score]
   end
 
-  ### ----- Helper Methods ----- ###
+  ### ----- Display Message ----- ###
 
   def display_wellcome
+    system "clear"
     puts "Let's Start This Game!"
     sleep 2
+    system "clear"
   end
 
   def display_game_over
     puts
     puts '---------------- Game Over ----------------'.light_magenta
+    display_score
     puts
     puts "Only ONE player left, #{the_winner?[0].name.upcase.light_magenta} is the winner!!!"
     puts
@@ -119,15 +126,15 @@ class Game
   def display_turn_info
     puts
     puts "------ #{@current_player.name} Playing ------".light_cyan
-    puts
+    puts 
     puts "Posible letters: #{@letters.to_a.join(' ').upcase.light_blue}"
     puts "Number of potental words: #{@dictionary.length.to_s.light_blue}"
     puts "Current fragment: #{@fragment.upcase.light_blue}"
   end
 
   def display_score
-    system "clear"
-    puts "Compleated words : #{@compleated.to_a.join(' ').upcase.light_cyan}"
+    puts
+    puts "Compleated words : #{@compleated.to_a.join(' ').upcase.light_green}"
     players.each do |player|
       puts "Player #{player.name}'s' score is  #{ghost_score(player).light_blue}"
     end
