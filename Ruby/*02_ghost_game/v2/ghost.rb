@@ -13,15 +13,14 @@ class Game
     @dictionary = create_dictionary('./dictionary.txt')
     @players = args
     @char = ''
-    @letters = Hash.new(0)
+    @letters = []
   end
+
+  ### ----- Main Logic ----- ###
 
   def run
     display_wellcome
-    
-    while activ_players.length > 1
-      play_round
-    end
+    play_round while activ_players.length > 1
     display_game_over
   end
 
@@ -48,6 +47,20 @@ class Game
     end
   end
 
+  def take_turn
+    display_score
+    display_turn_info
+
+    until valid_play?
+      print "Enter a letter form the list: "
+      @char = gets.chomp
+    end
+    
+    @fragment += @char
+    update_dictionary
+  end
+
+  ### ----- Helper Methods ----- ###
 
   def create_dictionary(file)
     Set.new File.readlines(file).map(&:chomp)
@@ -57,17 +70,38 @@ class Game
     @players.select { |p| p.activ }
   end
 
+  # posilble letters for the next turn
+  def available_letters
+    @letters = @dictionary.map { |word| word[fragment.length] }.uniq.to_a
+  end
+
+  def round_over?
+    dictionary.empty?
+  end
+
+  # minimazise dictionar to words that only that start with curent fragment
+  def update_dictionary
+    dictionary.select! { |word| @fragment == word[0...fragment.length] && word.length > fragment.length }
+  end
+
+  def valid_play?
+    alphabet = ('a'..'z').to_a
+    char.length == 1 && alphabet.include?(@char) && @letters.include?(@char) ? true : false
+  end
+  
+  def the_winner?
+    players.select { |player| player.score < 5 }
+  end
+
+  def ghost_score(player)
+    'GHOST'[0...player.score]
+  end
+
+  ### ----- Helper Methods ----- ###
+
   def display_wellcome
     puts "Let's Start This Game!"
     sleep 2
-  end
-
-  # posilble letters for the next turn
-  def available_letters
-    @dictionary.map do |word|
-      letter = word[fragment.length]
-      letters[letter] += 1
-    end
   end
 
   def display_game_over
@@ -80,34 +114,11 @@ class Game
     puts
   end
 
-  
-
-  
-
-  def take_turn
-    return if activ_players.length < 2
-    display_score
-    display_turn_info
-
-    until valid_play?
-      print "Enter a letter form the list: "
-      @char = gets.chomp
-    end
-    
-    @fragment += @char
-    update_dictionary
-    round_over?
-  end
-
-  def round_over?
-    dictionary.empty?
-  end
-
   def display_turn_info
     puts
     puts "------ #{@current_player.name} Playing ------".light_cyan
     puts
-    puts "Posible letters: #{@letters.keys.join(' ').upcase.light_blue}"
+    puts "Posible letters: #{@letters.to_a.join(' ').upcase.light_blue}"
     puts "Number of potental words: #{@dictionary.length.to_s.light_blue}"
     puts "Current fragment: #{@fragment.upcase.light_blue}"
   end
@@ -125,26 +136,6 @@ class Game
     puts
     puts "Congratulations #{@current_player.name.upcase.light_blue}!!!"
     puts "You complited a word #{fragment.upcase.light_green} and EARND a letter!"
-  end
-
-  # minimazise dictionar to words that only that start with curent fragment
-  def update_dictionary
-    dictionary.select! { |word| @fragment == word[0...fragment.length] && word.length > fragment.length }
-  end
-
-  def valid_play?
-    alphabet = ('a'..'z').to_a
-    char.length == 1 && alphabet.include?(@char) && @letters.include?(@char) ? true : false
-  end
-  
-  
-
-  def the_winner?
-    players.select { |player| player.score < 5 }
-  end
-
-  def ghost_score(player)
-    'GHOST'[0...player.score]
   end
 
 end 
