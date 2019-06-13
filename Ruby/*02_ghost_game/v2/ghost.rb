@@ -31,17 +31,13 @@ class Game
     players.each do |player|
       if player.activ && activ_players > 1
         @current_player = player
-        available_letters
-        @char = ''
         take_turn
       end
     end
   end
 
   def take_turn
-    # available_letters
-    # @char = ''
-    # system "clear"
+    available_letters
     display_score
     display_turn_info
 
@@ -51,6 +47,7 @@ class Game
     end
     
     @fragment += @char
+    @char = ''
     update_dictionary
     word_comlete if dictionary.empty?
   end
