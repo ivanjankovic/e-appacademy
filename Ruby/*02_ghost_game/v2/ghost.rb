@@ -53,7 +53,6 @@ class Game
     @fragment += @char
     update_dictionary
     word_comlete if dictionary.empty?
-    system "clear"
   end
 
   def word_comlete
@@ -109,43 +108,52 @@ class Game
     system "clear"
     puts "Let's Start This Game!"
     sleep 2
-    system "clear"
   end
 
-  def display_game_over
+  def display_score
+    puts "-" * 68
     puts
-    puts '---------------- Game Over ----------------'.light_magenta
-    display_score
+    puts "Compleated words: #{@compleated.to_a.join(' ').upcase.light_green}"
+    players.each do |player|
+      print "#{player.name}'s progres: #{ghost_score(player).light_blue} "
+    end
     puts
-    puts "Only ONE player left, #{the_winner?[0].name.upcase.light_magenta} is the winner!!!"
-    puts
-    puts ('-' * 43).light_magenta
     puts
   end
 
   def display_turn_info
+    system "clear"
+    display_score
     puts
-    puts "------ #{@current_player.name} Playing ------".light_cyan
-    puts 
+    puts "#{'-' * 27} #{@current_player.name} Playing #{'-' * 27}".light_cyan
+    puts
     puts "Posible letters: #{@letters.to_a.join(' ').upcase.light_blue}"
     puts "Number of potental words: #{@dictionary.length.to_s.light_blue}"
     puts "Current fragment: #{@fragment.upcase.light_blue}"
   end
 
-  def display_score
+  def display_word_complete
+    system "clear"
+    display_score
     puts
-    puts "Compleated words : #{@compleated.to_a.join(' ').upcase.light_green}"
-    players.each do |player|
-      puts "Player #{player.name}'s' score is  #{ghost_score(player).light_blue}"
-    end
+    puts "#{'-' * 26} Word Complited #{'-' * 26}".light_green
+    puts
+    puts "Congratulations #{@current_player.name.upcase.light_cyan}!!!"
+    puts "You complited a word #{fragment.upcase.light_green} and EARND a letter!"
+    puts
+    puts ('-' * 68).light_green
   end
 
-  def display_word_complete
+  def display_game_over
+    system "clear"
+    display_score
     puts
-    puts '----- Word Complited -----'.light_green
+    puts "#{'-' * 28} Game Over #{'-' * 29}".light_magenta
     puts
-    puts "Congratulations #{@current_player.name.upcase.light_blue}!!!"
-    puts "You complited a word #{fragment.upcase.light_green} and EARND a letter!"
+    puts "#{' '*15} Game complete, #{the_winner?[0].name.upcase.light_cyan} is the winner!!!"
+    puts
+    puts ('-' * 68).light_magenta
+    puts
   end
 
 end 
