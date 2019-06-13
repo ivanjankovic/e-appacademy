@@ -14,6 +14,7 @@ class Game
     @players = args
     @char = ''
     @letters = []
+    @compleated = []
   end
 
   ### ----- Main Logic ----- ###
@@ -25,9 +26,9 @@ class Game
   end
 
   def play_round
-    activ_players.each do |player|
+    players.each do |player|
       
-      if !round_over?
+      if player.activ && !round_over?
         @current_player = player
         available_letters
         @char = ''
@@ -35,7 +36,8 @@ class Game
       else
         display_word_complete
 
-        #update curent player score and activ properties
+        #update compleated words, player score and activ properties
+        @compleated << @fragment
         @current_player.score += 1
         @current_player.activ = false if @current_player.score == 5
         
@@ -125,6 +127,7 @@ class Game
 
   def display_score
     system "clear"
+    puts "Compleated words : #{@compleated.to_a.join(' ').upcase.light_cyan}"
     players.each do |player|
       puts "Player #{player.name}'s' score is  #{ghost_score(player).light_blue}"
     end
