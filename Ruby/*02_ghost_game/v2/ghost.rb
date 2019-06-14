@@ -2,34 +2,33 @@ require_relative 'player'
 require 'colorize'
 require 'byebug'
 
-
 class Game
 
-  attr_reader :dictionary, :fragment, :letters, :players
-  attr_accessor :char
+  attr_reader :dictionary, :fragment, :letters, :players, :activ_players
+  attr_accessor :char, :activ
 
   def initialize(*args)
     @fragment = ''
     @dictionary = create_dictionary('./dictionary.txt')
     @players = args
+    @activ_players = args
     @char = ''
     @letters = []
     @compleated = []
+    @activ = true
   end
 
   ### ----- Main Logic ----- ###
 
   def run
     display_wellcome
-    play_round while activ_players > 1
+    play_round while activ
     display_game_over
   end
 
   def play_round
-
-    # take a turn for every actvi player
     players.each do |player|
-      if player.activ && activ_players > 1
+      if player.score < 5 && self.activ
         @current_player = player
         take_turn
       end
@@ -55,15 +54,16 @@ class Game
   def word_comlete
     display_word_complete
 
-    #update compleated words, player score and activ properties
+    #update compleated words, fragment and dictionary
     @compleated << @fragment
-    @current_player.score += 1
-    @current_player.activ = false if @current_player.score == 5
-    
-    # reset fragment and dictionary
     @fragment = ''
     @dictionary = create_dictionary('./dictionary.txt')
-    sleep(5)
+
+    #update player status
+    @current_player.score += 1
+    
+    # game over if one_player activ left
+    self.activ = false if activ_players.one?
   end
 
   ### ----- Helper Methods ----- ###
@@ -73,7 +73,7 @@ class Game
   end
 
   def activ_players
-    @players.select { |p| p.activ }.length
+    @players.select { |player| player.score < 5 }
   end
 
   # posilble letters for the next turn
@@ -139,6 +139,7 @@ class Game
     puts "You complited a word #{fragment.upcase.light_green} and EARND a letter!"
     puts
     puts ('-' * 68).light_green
+    sleep(5)
   end
 
   def display_game_over
