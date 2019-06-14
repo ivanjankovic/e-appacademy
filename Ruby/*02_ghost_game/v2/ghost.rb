@@ -27,15 +27,11 @@ class Game
   end
 
   def play_round
-    players.each do |player|
-      if player.score < 5 && self.activ
-        @current_player = player
-        take_turn
-      end
-    end
+    players.each { |player| take_turn(player) if player.score < 5 && self.activ }
   end
 
-  def take_turn
+  def take_turn(player)
+    @current_player = player
     available_letters
     display_score
     display_turn_info
