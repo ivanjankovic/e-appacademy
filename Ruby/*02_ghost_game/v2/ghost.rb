@@ -84,7 +84,7 @@ class Game
 
   def valid_play?
     alphabet = ('a'..'z').to_a
-    char.length == 1 && alphabet.include?(@char) && @letters.include?(@char) ? true : false
+    char.length == 1 && alphabet.include?(@char) && @letters.include?(@char)
   end
   
   def the_winner?
