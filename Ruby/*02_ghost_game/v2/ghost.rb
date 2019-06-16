@@ -1,4 +1,4 @@
-require_relative 'player'
+require_relative File.expand_path('./player.rb')
 require 'colorize'
 require 'byebug'
 
@@ -152,4 +152,4 @@ class Game
 
 end 
 
-game = Game.new(Player.new('Sima'), Player.new('Pera'), Player.new('Vasa'))
+game = Game.new(Player.new('Noah'), Player.new('Adam'), Player.new('David'))
