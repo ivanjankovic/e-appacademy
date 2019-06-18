@@ -24,7 +24,4 @@
 * [ ] Job Search - 69H & 37m
 * [ ] GraphQL - 12H & 05m
 
-_________________________________________
-
-total time estimate 666H & 36m ~ 16W * 42H 
-_________________________________________
+total time estimate 666H & 36m ~ 16W * 42H
