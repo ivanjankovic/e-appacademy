@@ -2,6 +2,7 @@
 revisit 
 
 Ruby > Refrences > Additional Resources:
+  - just do all refrence section again, lectures are not long 2H each prjoject shoiuld be 5H
   - Hash and Equals
   - Swap
   - redo Memory Puzzle and Sudoku and compare your solution with given solutions, your curent implmentation was good but you need to practice and get better faster at it
@@ -11,7 +12,6 @@ Ruby > Recursion
 
 Activ Projects:  
 
-02_ghost_game
 04_memory_puzzle_game
 05_sudoku_game
 06_recursion_homework
