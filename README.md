@@ -9,7 +9,7 @@
   * [x] Reference                     - 12H
   * [x] Recursion                     - 16H
   * [x] Git                           - 17H
-  * [ ] Data Structures               - 17H
+  * [S] Data Structures               - 17H
   * [ ] Object-oriented programming   - 11H
   * [ ] OOP Contin.                   - 14H
   * [ ] RSpec and TDD                 - 11H
