@@ -1,8 +1,11 @@
 
 revisit 
 
-Ruby > Refrences > Additional Resources:
-  - just do all refrence section again, lectures are not long 2H each prjoject shoiuld be 5H
+Ruby > Refrences
+	> Method Decomposition & Design - very good leson
+
+> Additional Resources:
+  - just do all refrence section again, lectures are not long 2H, each prjoject should be 5H
   - Hash and Equals
   - Swap
   - redo Memory Puzzle and Sudoku and compare your solution with given solutions, your curent implmentation was good but you need to practice and get better faster at it
